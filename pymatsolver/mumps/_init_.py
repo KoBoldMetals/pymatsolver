@@ -5,6 +5,9 @@ from __future__ import absolute_import
 
 import gc
 from pymatsolver.solvers import Base
+
+from mpi4py import MPI
+
 from . import MumpsInterface as _MUMPSINT
 
 _mumpsErrors = {

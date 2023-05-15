@@ -9,6 +9,7 @@ module mumps_mod
 
 
    INCLUDE 'dmumps_struc.h'
+   INCLUDE 'mpif.h'
 
    !logical,private:: mumps_initialized = .false.
 
@@ -24,7 +25,7 @@ implicit none
 TYPE (DMUMPS_STRUC),intent(inout):: mumps_par
 integer(kind=8),intent(in):: sym  ! =0 unsymmetric, =1 symm. pos def, =2 general symm.
 
-   !mumps_par%COMM = MPI_COMM_WORLD
+   mumps_par%COMM = MPI_COMM_WORLD
    mumps_par%SYM = sym  ! =0 unsymmetric, =1 symm. pos def, =2 general symm.
    mumps_par%PAR = 1
 
