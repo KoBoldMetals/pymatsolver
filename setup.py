@@ -27,7 +27,7 @@ mumps_extension = Extension(
         "/usr/include",
     ],
     libraries=[
-        "zmumps", "cmumps", "dmumps", "smumps", "mumps_common", "mpiseq", "blas", "pord",
+        "zmumps", "dmumps", "mumps_common", "mpiseq", "blas", "pord",
     ],
     library_dirs=[
         "/usr/lib"

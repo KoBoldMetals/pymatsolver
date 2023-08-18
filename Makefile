@@ -1,4 +1,4 @@
-.PHONY: build coverage lint graphs tests docs mumps mumps_mac mumps_install_mac
+.PHONY: build coverage lint graphs tests docs mumps mumps_mac mumps_install_mac clean
 
 build:
 	python setup.py build_ext --inplace
@@ -26,3 +26,10 @@ mumps_mac:
 
 mumps_install_mac:
 	brew install mumps --with-scotch5 --without-mpi
+
+clean:
+	-rm -rf build
+	-rm -rf dist
+	-rm -rf *.egg-info
+	cd pymatsolver/mumps;make clean
+
