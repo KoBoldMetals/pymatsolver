@@ -17,6 +17,7 @@ from numpy.distutils.core import Extension, setup
 mumps_extension = Extension(
     name = "pymatsolver.mumps.MumpsInterface",
     sources = [
+        "pymatsolver/mumps/MumpsInterface.pyf",  # auto-generated wrapper from `make wrapper`
         "pymatsolver/mumps/mumps_interface.f90",
         "pymatsolver/mumps/mumps_p.f90",
         "pymatsolver/mumps/mumps_cmplx_p.f90",

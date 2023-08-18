@@ -1,3 +1,5 @@
+.PHONY: all build_mac build clean test wrapper
+
 INCMUMPS  = -I/usr/include -L/usr/lib \
             -L/usr/local/opt/libevent/lib
 INCMAC    = -L/usr/local/opt/scotch5/lib \
@@ -44,3 +46,9 @@ clean:
 
 test:
 	cd ../..;pytest
+
+wrapper:
+	f2py mumps_interface.f90 -m MumpsInterface -h MumpsInterface.pyf
+
+MumpsInterface.pyf: mumps_interface.f90
+	f2py "$<" -m MumpsInterface -h "$@"

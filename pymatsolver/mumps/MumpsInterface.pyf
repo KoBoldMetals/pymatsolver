@@ -1,0 +1,59 @@
+!    -*- f90 -*-
+! Note: the context of this file is case sensitive.
+
+python module MumpsInterface ! in 
+    interface  ! in :MumpsInterface
+        subroutine factor_mumps(n,nnz,sym,a,ja,ia,ierr,pm_out) ! in :MumpsInterface:mumps_interface.f90
+            use mumps_mod, only: init,convert_to_mumps_format,factor_matrix,destroy
+            integer(kind=8), optional,intent(in),check(shape(ia, 0) == 1 + n),depend(ia) :: n=-1 + shape(ia, 0)
+            integer(kind=8), optional,intent(in),check(shape(a, 0) == nnz),depend(a) :: nnz=shape(a, 0)
+            integer(kind=8) intent(in) :: sym
+            real(kind=8) dimension(nnz),intent(in) :: a
+            integer(kind=8) dimension(nnz),intent(in),depend(nnz) :: ja
+            integer(kind=8) dimension(1 + n),intent(in) :: ia
+            integer(kind=8) intent(out) :: ierr
+            integer(kind=8) intent(out) :: pm_out
+        end subroutine factor_mumps
+        subroutine solve_mumps(pm_in,nrhs,lrhs,rhs,x,transpose) ! in :MumpsInterface:mumps_interface.f90
+            use mumps_mod, only: solve
+            integer(kind=8) intent(in) :: pm_in
+            integer(kind=8) intent(in) :: nrhs
+            integer(kind=8), optional,intent(in),check(shape(rhs, 0) == lrhs),depend(rhs) :: lrhs=shape(rhs, 0)
+            real(kind=8) dimension(lrhs),intent(in) :: rhs
+            real(kind=8) dimension(lrhs),intent(out),depend(lrhs) :: x
+            integer(kind=8) intent(in) :: transpose
+        end subroutine solve_mumps
+        subroutine destroy_mumps(pm_in) ! in :MumpsInterface:mumps_interface.f90
+            use mumps_mod, only: destroy
+            integer(kind=8) intent(in) :: pm_in
+        end subroutine destroy_mumps
+        subroutine factor_mumps_cmplx(n,nnz,sym,a,ja,ia,ierr,pm_out) ! in :MumpsInterface:mumps_interface.f90
+            use mumps_cmplx_mod, only: init,convert_to_mumps_format,factor_matrix,destroy
+            integer(kind=8), optional,intent(in),check(shape(ia, 0) == 1 + n),depend(ia) :: n=-1 + shape(ia, 0)
+            integer(kind=8), optional,intent(in),check(shape(a, 0) == nnz),depend(a) :: nnz=shape(a, 0)
+            integer(kind=8) intent(in) :: sym
+            complex(kind=8) dimension(nnz),intent(in) :: a
+            integer(kind=8) dimension(nnz),intent(in),depend(nnz) :: ja
+            integer(kind=8) dimension(1 + n),intent(in) :: ia
+            integer(kind=8) intent(out) :: ierr
+            integer(kind=8) intent(out) :: pm_out
+        end subroutine factor_mumps_cmplx
+        subroutine solve_mumps_cmplx(pm_in,nrhs,lrhs,rhs,x,transpose) ! in :MumpsInterface:mumps_interface.f90
+            use mumps_cmplx_mod, only: solve
+            integer(kind=8) intent(in) :: pm_in
+            integer(kind=8) intent(in) :: nrhs
+            integer(kind=8), optional,intent(in),check(shape(rhs, 0) == lrhs),depend(rhs) :: lrhs=shape(rhs, 0)
+            complex(kind=8) dimension(lrhs),intent(in) :: rhs
+            complex(kind=8) dimension(lrhs),intent(out),depend(lrhs) :: x
+            integer(kind=8) intent(in) :: transpose
+        end subroutine solve_mumps_cmplx
+        subroutine destroy_mumps_cmplx(pm_in) ! in :MumpsInterface:mumps_interface.f90
+            use mumps_cmplx_mod, only: destroy
+            integer(kind=8) intent(in) :: pm_in
+        end subroutine destroy_mumps_cmplx
+    end interface 
+end python module MumpsInterface
+
+! This file was auto-generated with f2py (version:1.23.5).
+! See:
+! https://web.archive.org/web/20140822061353/http://cens.ioc.ee/projects/f2py2e
